@@ -1,0 +1,29 @@
+security:
+    providers:
+        database_users:
+            entity: { class: UserBundle:User, property: email }
+    encoders:
+        UserBundle\Entity\User:
+            algorithm: bcrypt
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            pattern: ^/
+
+            form_login:
+                login_path: /login
+                check_path: /login
+                failure_path: login
+                always_use_default_target_path: true
+                default_target_path: connect
+
+            logout:
+                path: logout
+                target: /
+    access_control:
+            - { path: ^/connect, roles: ROLE_USER }

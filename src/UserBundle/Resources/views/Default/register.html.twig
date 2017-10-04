@@ -1,0 +1,110 @@
+{% extends "UserBundle::base.html.twig" %}
+
+{% block content %}
+<!-- START #fh5co-header -->
+<header id="fh5co-header-section" role="header" class="" >
+    <div class="container">
+
+        <!-- START #fh5co-logo -->
+        <h1 id="fh5co-logo" class="pull-left"><a href="index.html">Treello</a></h1>
+
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+            <ul class="sf-menu" id="fh5co-primary-menu">
+                <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
+                <li><a href="{{ path('login') }}">Connexion</a></li>
+                <li><a href="{{ path('register') }}">Inscription</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<!-- START #fh5co-hero -->
+<aside id="fh5co-hero" style="background-image: url(images/hero3.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="fh5co-hero-wrap">
+                    <div class="fh5co-hero-intro">
+                        <h1>Inscription</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<div id="fh5co-main">
+
+
+
+
+    <section>
+        <div class="container">
+
+            <div class="row">
+
+                <div class="fh5co-spacer fh5co-spacer-sm"></div>
+                <div class="col-md-8">
+
+                    {% for flashMessage in app.session.flashBag.get('success') %}
+                        <div class="alert alert-success" style="background: #e3f7e7;color: #000;">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+
+                    {% for flashMessage in app.session.flashBag.get('error') %}
+                        <div class="alert alert-danger" style="background: #ff0000;color:#fff;">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+
+                    <form action="{{ path('register') }}" method="post">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="nom" class="sr-only">Nom</label>
+                                <input placeholder="Nom" id="nom" type="text" name="nom" class="form-control input-lg">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="prenom" class="sr-only">Prénom</label>
+                                <input placeholder="Prénom" id="prenom" type="text" name="prenom" class="form-control input-lg">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email" class="sr-only">Email</label>
+                                <input placeholder="Email" id="email" type="text" name="email" class="form-control input-lg">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="password" class="sr-only">Password</label>
+                                <input placeholder="Password" id="password" type="text" name="password" class="form-control input-lg">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-lg " value="S'inscrire">
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="fh5co-spacer fh5co-spacer-md"></div>
+
+            </div>
+
+        </div>
+    </section>
+
+    {% endblock %}

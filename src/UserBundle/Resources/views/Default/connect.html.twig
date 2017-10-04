@@ -1,0 +1,130 @@
+{% extends "UserBundle::base.html.twig" %}
+
+{% block content %}
+
+<!-- START #fh5co-header -->
+<header id="fh5co-header-section" role="header" class="" >
+    <div class="container">
+
+        <!-- START #fh5co-logo -->
+        <h1 id="fh5co-logo" class="pull-left"><a href="#">Treello</a></h1>
+
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+            <ul class="sf-menu" id="fh5co-primary-menu">
+                <li><a href="{{ path('connect') }}">Les tableaux</a></li>
+                <li><a href="{{ path('profile') }}">Profile</a></li>
+                <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<!-- START #fh5co-hero -->
+<aside id="fh5co-hero" style="background-image: url(images/hero4.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="fh5co-hero-wrap">
+                    <div class="fh5co-hero-intro">
+                        <h2>Les projets<span></span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<div id="fh5co-main">
+
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+
+    <section>
+        <div class="container-fluid">
+
+            <div class="row" style="margin-left:10px;">
+
+
+
+                {% for flashMessage in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" style="background: #e3f7e7;color: #000;">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
+                <div class="col-md-12 " id="fh5co-content">
+                    <h1>AJOUTER UN NOUVEAU PROJET</h1>
+                      <form action="{{ path('connect') }}" method="POST">
+                        <div class="form-group" style="display: inline-flex;">
+                          <input type="text" placeholder="Nom du projet" name="nameprojet" style="width: 300px;"/>
+                        </div><button type="submit" >Ajouter</button>
+                     </form>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row" style="margin-left:10px;">
+                <div class="col-md-9 " id="fh5co-content">
+                    <h2>Tableaux personnels</h2>
+                    <div class="fh5co-spacer fh5co-spacer-sm"></div>
+
+                    <div class="row">
+                        {% for projet in projets %}
+                        <a href="{{ path('projects', {'idprojet': projet.id }) }}">
+                        <div class="col-md-2 col-sm-4" class="back_picture" style="background-image: url(images/project_1.jpg);margin-left:10px;height:160px;font-weight: bold;color: #fff;font-size: 18px;text-align: center;padding-top: 2.5%;">
+                            <p>{{ projet.nameproject }}</p>
+                        </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <div class="col-md-3" style="border-left: 1px solid #aaa;">
+
+                    <div class="well" style="overflow: auto;height: 250px;">
+                        <div class="well">Changer le fond</div>
+                        <div class="well">
+                            <div class="form-group" style="display: inline-flex;">
+                                <span class="color0">&nbsp;</span>
+                                <span class="color1">&nbsp;</span>
+                                <span class="color2">&nbsp;</span>
+                                <span class="color3">&nbsp;</span>
+                                <span class="color4">&nbsp;</span>
+                                <span class="color5">&nbsp;</span>
+                                <span class="color6">&nbsp;</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="well">Projet Patarger</div>
+
+                    <div class="well" style="overflow: auto;height: 400px;">
+                        <ul class="list-group">
+                            {% for projet_ in listpartage %}
+                                <a href="{{ path('projects', {'idprojet': projet_.id }) }}">
+                                    <li class="list-group-item"> {{ projet_.nameproject }}</li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <hr>
+
+
+
+
+                </div>
+
+
+            </div>
+
+            <div class="fh5co-spacer fh5co-spacer-md"></div>
+        </div>
+
+    </section>
+
+
+    {% endblock %}

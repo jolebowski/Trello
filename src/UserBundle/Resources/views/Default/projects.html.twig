@@ -1,0 +1,190 @@
+{% extends "UserBundle::base.html.twig" %}
+
+{% block content %}
+
+<!-- START #fh5co-header -->
+<header id="fh5co-header-section" role="header" class="" >
+    <div class="container">
+
+        <!-- START #fh5co-logo -->
+        <h1 id="fh5co-logo" class="pull-left"><a href="#">Treello</a></h1>
+
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+            <ul class="sf-menu" id="fh5co-primary-menu">
+                 <li><a href="{{ path('connect') }}">Les tableaux</a></li>
+                 <li><a href="{{ path('profile') }}">Profile</a></li>
+                 <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<!-- START #fh5co-hero -->
+<aside id="fh5co-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="fh5co-hero-wrap">
+                    <div class="fh5co-hero-intro">
+                        <h2>Les taches<span></span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<div id="fh5co-main">
+
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                {% for flashMessage in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" style="background: #e3f7e7;color: #000;">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
+                {% for flashMessage in app.session.flashBag.get('error2') %}
+                    <div class="alert alert-danger" style="background: #ff0000;color: #000;">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
+
+                <div class="row" style="margin-right: 0px; overflow:scroll;">
+                    <div class="col-md-4" >
+                        <h2>Ajouter une le titre d'une tache</h2>
+                        <div class="well">
+                            <form method="POST" action="{{ path('projects', {'idprojet': tasksid }) }}">
+                                <div class="form-group" style="display: inline-flex">
+                                    <input type="text" placeholder="Ajouter une Tache" name="tasks" />
+                                </div><button type="submit" >Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" >
+                        <h2>Ajouter un membre</h2>
+                        <div class="well">
+                            <form method="POST" action="{{ path('projects', {'idprojet': tasksid }) }}">
+                                <div class="form-group" style="display: inline-flex">
+                                    <input type="text" placeholder="E-mail du membre" name="membre" style="width:300px;" />
+                                </div><button type="submit" >Inviter</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="border-left: 1px solid #aaa;">
+
+                        <div class="well" style="overflow: auto;height: 250px;">
+                            <div class="well">
+                                <div class="form-group" style="display: inline-flex;">
+                                    <span class="color0">&nbsp;</span>
+                                    <span class="color1">&nbsp;</span>
+                                    <span class="color2">&nbsp;</span>
+                                    <span class="color3">&nbsp;</span>
+                                    <span class="color4">&nbsp;</span>
+                                    <span class="color5">&nbsp;</span>
+                                    <span class="color6">&nbsp;</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div><hr>
+            <div class="row">
+                <div class="container_tasks">
+                        <div class="fh5co-spacer fh5co-spacer-sm"></div>
+
+                            {% for listsTask in listsTasks %}
+                            <div class="col-md-2 col-sm-4" >
+                                
+                                <div class="" style="background: rgba(0,0,0,0.5); color: white;">
+
+
+                                   <center><span style="font-size: 18px;font-weight: bold;">{{ listsTask.titre }}</span>
+                                       <br>
+                                       <span style="font-size: 12px;clear: both;">Date : {{ listsTask.dates.date }}</span></center>
+                                </div>
+                                <hr>
+                                <div>
+                                    {% for listsUnderTask in listsUnderTasks %}
+                                        {% if listsUnderTask.idtasks == listsTask.id %}
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div>
+                                                        <form action="{{ path('projects', {'idprojet': tasksid }) }}" method="POST">
+                                                            <textarea value="{{ listsUnderTask.contenu }}" name="update_content" type="text">{{ listsUnderTask.contenu }}</textarea>
+                                                            <input type="hidden" name="key_content" value="{{ listsUnderTask.id }}"/>
+                                                            <button type="submit">
+                                                              <span class="glyphicon glyphicon-edit Try it"></span>
+                                                            </button>
+                                                        </form>
+
+                                                        <form action="{{ path('projects', {'idprojet': tasksid }) }}" method="POST">
+                                                            <input type="hidden" name="delete_content" value="{{ listsUnderTask.id }}">
+                                                            <button type="submit">
+                                                               <span class="glyphicon glyphicon-trash"></span>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                  
+                                                    
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="fh5co-spacer-xs"></div>
+
+                                <div class="list-content">
+                                    <form method="POST" action="{{ path('projects', {'idprojet': tasksid }) }}" >
+                                        <textarea class="content" rows="4" cols="20" placeholder="ajouter contenu" name="content"></textarea>
+                                        <input type="hidden" name="tache" value="{{ listsTask.id }}" />
+                                        <p>
+                                            <button class="btn btn-primary btn-sm" type="submit" >Ajouter</button>
+                                        </p>
+                                    </form>
+                                    <p class="hide_add">Annuler</p>
+                                </div>
+
+                                <div> <span class="show_add">Ajouter une carte</span> </div>
+                            </div>
+                            {% endfor %}
+
+                </div>
+            </div>
+        </div>
+            <div class="fh5co-spacer fh5co-spacer-md"></div>
+    </section>
+
+</div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="panel panel-default" data-toggle="modal" data-target="#myModal">
+                        <div class="panel-body">Modifier le contenu</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {% endblock %}

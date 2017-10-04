@@ -1,0 +1,47 @@
+
+
+    <div class="container" style="color: #25698C;">
+        <center>
+        <h1>Oops! Une erreur</h1>
+        
+        <h2>Cet fichier est introuvable "{{ status_code }} {{ status_text }}".</h2>
+            <img src="http://www.wildfireinternet.co.uk/userfiles/images/sys/blog_items/New_User_Access_Control_Feature_94947.png" class="img-responsive" width="50"> <br>
+        <img src="https://d13yacurqjgara.cloudfront.net/users/540920/screenshots/2355118/trello.png" class="img-responsive" width="">
+
+              <div class="panel-group">
+                 <div class="panel panel-danger">
+                     <div class="panel-heading">Target Error</div>
+                     <div class="panel-body"><h3> {{ exception.class|abbr_class }}: {{ exception.message|nl2br|format_file_from_text }} </h3> </div>
+                 </div>
+                <div class="panel panel-default">
+                     <div class="panel-heading">Logs System</div>
+                     <div class="panel-body">
+
+
+                         {% if logger %}
+                             <div class="block">
+                                 <div class="logs clear-fix">
+                                     {% spaceless %} {% endspaceless %}
+
+                                     {% if logger.counterrors %}
+                                         <div class="error-count">
+                                             <span>
+                                                 {{ logger.counterrors }} error{{ logger.counterrors > 1 ? 's' : ''}}
+                                             </span>
+                                         </div>
+                                     {% endif %}
+                                 </div>
+
+                                 <div id="logs">
+                                     {% include '@Twig/Exception/logs.html.twig' with { 'logs': logger.logs } only %}
+                                 </div>
+                             </div>
+                         {% endif %}
+
+
+                     </div>
+                 </div>
+             </div>
+
+        </center>
+    </div>

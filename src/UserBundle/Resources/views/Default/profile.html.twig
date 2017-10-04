@@ -1,0 +1,89 @@
+{% extends "UserBundle::base.html.twig" %}
+
+{% block content %}
+
+<!-- START #fh5co-header -->
+<header id="fh5co-header-section" role="header" class="" >
+    <div class="container">
+
+        <!-- START #fh5co-logo -->
+        <h1 id="fh5co-logo" class="pull-left"><a href="#">Treello</a></h1>
+
+        <!-- START #fh5co-menu-wrap -->
+        <nav id="fh5co-menu-wrap" role="navigation">
+            <ul class="sf-menu" id="fh5co-primary-menu">
+                <li><a href="{{ path('connect') }}">Les tableaux</a></li>
+                <li><a href="{{ path('profile') }}">Partager un projet</a></li>
+                <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<!-- START #fh5co-hero -->
+<aside id="fh5co-hero" style="background-image: url(images/hero4.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="fh5co-hero-wrap">
+                    <div class="fh5co-hero-intro">
+                        <h2>Mon profile<span></span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<div id="fh5co-main">
+
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+
+    <section>
+
+<div class="container-fluid">
+
+    <h1>Modifier Profile</h1>
+    <hr>
+    <div class="row" id="hide_form_edit">
+        {% for flashMessage in app.session.flashBag.get('success3') %}
+            <div class="alert alert-success" style="background: #e3f7e7;color: #000;">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+      <div class="col-md-9 personal-info">
+        <h3>Informations</h3>
+        <form class="form-horizontal" action="{{ path('profile') }}" method="POST" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Prenom :</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" name="prenom" value="{{ app.user.prenom }}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nom :</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" name="nom" value="{{ app.user.nom }}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email :</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" name="email" value="{{ app.user.email }}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" value="Modifier">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+    </section>
+
+    {% endblock %}
